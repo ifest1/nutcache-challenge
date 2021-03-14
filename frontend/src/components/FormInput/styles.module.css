@@ -1,0 +1,26 @@
+.container {
+  width: 100%;
+  height: 47px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 2px solid #bcbcbc;
+  background-color: white;
+  transition: ease-in-out 0.2s;
+}
+
+.container > input {
+  flex: 1;
+  background-color: white;
+  border: 0;
+  font-weight: 700;
+  font-size: 18px;
+  margin-left: 10px;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.container > svg {
+  margin-left: 10px;
+}

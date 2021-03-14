@@ -1,0 +1,17 @@
+{
+  "name": "nutcache-challenge-backend",
+  "version": "1.0.0",
+  "description": "nutcache challenge",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Iago Filipe",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.0"
+  }
+}
