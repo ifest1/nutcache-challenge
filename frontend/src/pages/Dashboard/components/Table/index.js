@@ -1,34 +1,35 @@
 import styles from './styles.module.css';
 import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
-import { useState } from 'react';
-import Modal from '../../../../components/Modal/index';
-import FormInput from '../../../../components/FormInput/index';
 import IconButton from '../../../../components/IconButton/index';
 import RegularButton from '../../../../components/RegularButton/index';
-import { FiUser } from 'react-icons/fi'
+import { useState } from 'react';
+import { remove } from '../../../../store/apiActions/employees';
+import { setModal, setIndexEditing, setCurrentEditing } from '../../../../store/ducks/employees/index';
+import { useDispatch, useSelector } from 'react-redux';
+import Form from '../Form/index';
 
+function Table({ columns, data, width, height }) {
+  const dispatch = useDispatch();
 
-function Table({
-  columns,
-  data,
-  width,
-  height,
-  deleteItem
-}) {
-  
-  const [edit, setEdit] = useState(false);
-  const [add, setAdd] = useState(false);
+  const modal = useSelector(state => state.employees.modal);
+
+  const edit = (idx) => {
+    dispatch(setCurrentEditing(data[idx]));
+    dispatch(setIndexEditing(idx));
+    dispatch(setModal(true));
+  }
+
+  const add = () =>  {
+    dispatch(setCurrentEditing({}));
+    dispatch(setModal(true));
+  }
+
+  const del = (id) => dispatch(remove(id));
 
   return (
     <div>
-      <Modal trigger={add} setTrigger={setAdd}>
-            <FormInput icon={FiUser}/>
-            <FormInput icon={FiUser}/>
-            <FormInput icon={FiUser}/>
-            <FormInput icon={FiUser}/>
-            <FormInput icon={FiUser}/>
-            <FormInput icon={FiUser}/>
-      </Modal>
+      <Form trigger = {modal} />
+
       <article style={{ width }} className={styles.tableContainer}>
       <div style={{ height }} className={styles.tableWrapper}>
         <table className={styles.table}>
@@ -42,25 +43,33 @@ function Table({
 
           <tbody>
             {data.map((item) => (
-              <tr>
+              <tr key={item._id}>
               {columns.map((column) => (
                 <td key={column.key}>{
                   column.key === 'delete' ?
-                    <IconButton onClick={() => deleteItem(item.id)}>
-                      <RiDeleteBin6Line size={18} color='tomato'/>
-                    </IconButton>
+                  <IconButton
+                    onClick={() => del(item._id)}>
+                    <RiDeleteBin6Line
+                      size={18}
+                      color='tomato'
+                    />
+                  </IconButton>
                 : column.key === 'edit' ?
-                    <IconButton onClick={() => console.log('edited')}>
-                      <RiEdit2Line size={18}/>
+                  <IconButton
+                    onClick={() => edit(data.indexOf(item))}
+                  >
+                    <RiEdit2Line 
+                      size={18}
+                    />
                     </IconButton> : item[column.key]}</td>
-              ))}
+                ))}
             </tr>
             ))}
           </tbody>
         </table>
       </div>
     </article>
-    <RegularButton onClick={() => setAdd(true)}>add</RegularButton> 
+    <RegularButton onClick={() => add()}>add</RegularButton> 
     </div>
     
   );

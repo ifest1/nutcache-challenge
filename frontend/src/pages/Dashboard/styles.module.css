@@ -2,10 +2,12 @@
   padding-top: 5px;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .dataContainer {
   display: flex;
+  height: 100%;
 }
 
 .tableContainer {
@@ -48,8 +50,4 @@
   background-color: #f3f3f3;
   border-radius: 10px;
   height: 49%;
-}
-
-.logsContainer {
-  height: 100%;
 }

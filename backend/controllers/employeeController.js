@@ -1,17 +1,28 @@
+const mongoose = require('../data/db');
+const Employee = require('../schemas/employee');
+
 async function index(req, res) {
-  res.json({status: 'ok'})
+  let employees = await Employee.find();
+  res.json(employees);
 }
 
 async function store(req, res) {
-  res.json({status: 'ok'})
+  await Employee.create(req.body);
+  res.json({status: 'ok'});
 }
 
 async function remove(req, res) {
-  res.json({status: 'ok'})
+  const _id = req.params.id;
+  await Employee.deleteOne(_id);
+  res.json({status: 'ok'});
 }
 
 async function update(req, res) {
-  res.json({status: 'ok'})
+  const _id = req.params.id;
+  console.log(_id, req.body);
+  let result = await Employee.findByIdAndUpdate({_id}, req.body);
+  console.log(result);
+  res.json({status: 'ok'});
 }
 
 module.exports = {

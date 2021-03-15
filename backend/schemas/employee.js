@@ -1,28 +1,35 @@
 const mongoose = require('mongoose');
 
 const EmployeeSchema = new mongoose.Schema({
-  title: {
+  name: {
     type: String,
     required: true,
   },
-  description: {
+  email: {
     type: String,
     required: true,
   },
-  category: {
+  cpf: {
     type: String,
     required: true,
   },  
-  
-  img_url: {
-    type: String,
+  startDate: {
+    type: Date,
     required: true,
   },
-  news_url: {
+  birthDate: {
+    type: Date,
+    required: true,
+  },
+  gender: {
+    type: String,
+    required: true
+  },
+  team: {
     type: String,
     required: true,
   }
 });
 
 const Employee = mongoose.model("Employee", EmployeeSchema);
-module.exports = EmployeeSchema;
+module.exports = Employee;

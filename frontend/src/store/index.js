@@ -1,5 +1,8 @@
-import { createStore } from 'redux';
-import rootReducer from './reducers/index';
-const store = createStore(rootReducer);
+import { configureStore } from '@reduxjs/toolkit';
+import employeesReducer from './ducks/employees'
 
-export default store;
+export default configureStore({
+  reducer: {
+    employees: employeesReducer
+  }
+})
