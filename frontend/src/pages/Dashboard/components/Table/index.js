@@ -1,34 +1,43 @@
-import styles from './styles.module.css';
 import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
 import IconButton from '../../../../components/IconButton/index';
 import RegularButton from '../../../../components/RegularButton/index';
-import { useState } from 'react';
-import { remove } from '../../../../store/apiActions/employees';
-import { setModal, setIndexEditing, setCurrentEditing } from '../../../../store/ducks/employees/index';
+import { 
+  setFormPopup,
+  setDeletePopup,
+  setCurrentData,
+  setCurrentIndex
+} from '../../../../store/ducks/employees/index';
 import { useDispatch, useSelector } from 'react-redux';
-import Form from '../Form/index';
+import DeletePopup from '../DeletePopup'
+import Form from '../Form';
+import styles from './styles.module.css';
 
 function Table({ columns, data, width, height }) {
   const dispatch = useDispatch();
 
-  const modal = useSelector(state => state.employees.modal);
+  const modalForm = useSelector(state => state.employees.modals.formPopup);
+  const modalDelete = useSelector(state => state.employees.modals.deletePopup);
 
   const edit = (idx) => {
-    dispatch(setCurrentEditing(data[idx]));
-    dispatch(setIndexEditing(idx));
-    dispatch(setModal(true));
+    dispatch(setCurrentData(data[idx]));
+    dispatch(setCurrentIndex(idx));
+    dispatch(setFormPopup(true));
   }
+
+  const del = (idx) => {
+    dispatch(setCurrentData(data[idx]));
+    dispatch(setDeletePopup(true));
+  };
 
   const add = () =>  {
-    dispatch(setCurrentEditing({}));
-    dispatch(setModal(true));
+    dispatch(setCurrentData({}));
+    dispatch(setFormPopup(true));
   }
-
-  const del = (id) => dispatch(remove(id));
 
   return (
     <div>
-      <Form trigger = {modal} />
+      <Form trigger = {modalForm} />
+      <DeletePopup trigger={modalDelete} />
 
       <article style={{ width }} className={styles.tableContainer}>
       <div style={{ height }} className={styles.tableWrapper}>
@@ -41,14 +50,14 @@ function Table({ columns, data, width, height }) {
             </tr>
           </thead>
 
-          <tbody>
+          <tbody className={styles.tableBody}>
             {data.map((item) => (
               <tr key={item._id}>
               {columns.map((column) => (
                 <td key={column.key}>{
                   column.key === 'delete' ?
                   <IconButton
-                    onClick={() => del(item._id)}>
+                    onClick={() => del(data.indexOf(item))}>
                     <RiDeleteBin6Line
                       size={18}
                       color='tomato'
@@ -69,7 +78,16 @@ function Table({ columns, data, width, height }) {
         </table>
       </div>
     </article>
-    <RegularButton onClick={() => add()}>add</RegularButton> 
+    
+      <div className={styles.btnsContainer}>
+        <div className={styles.addBtn}>
+          <RegularButton onClick={() => add()}>Add</RegularButton>
+        </div>
+        <div className={styles.handlePrevRegBtns}>
+          <RegularButton onClick={() => data ? edit(data.length - 1) : null}>Edit previous</RegularButton> 
+          <RegularButton onClick={() => data ? del(data.length - 1) : null}>Remove previous</RegularButton>
+        </div>
+      </div> 
     </div>
     
   );

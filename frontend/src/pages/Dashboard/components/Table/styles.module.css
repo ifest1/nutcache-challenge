@@ -1,3 +1,9 @@
+button {
+  margin-top: 20px;
+}
+
+
+
 .tableContainer {
   margin-right: 20px;
   margin-bottom: 5px;
@@ -21,6 +27,10 @@
   font-size: 20px;
   font-weight: bold;
   color: var(--primary);
+}
+
+.tableBody > tr > td > button {
+  margin-top: 20px;
 }
 
 .tableWrapper {
@@ -52,4 +62,21 @@
 
 .table tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
+}
+
+.btnsContainer {
+  display: flex;
+}
+
+.btnAdd {
+
+}
+
+.handlePrevRegBtns {
+  margin-left: auto;
+  margin-bottom: 5px;
+}
+
+.handlePrevRegBtns > button {
+  margin-right: 10px;
 }

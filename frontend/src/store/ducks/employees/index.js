@@ -1,11 +1,15 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
 
 const INITIAL_STATE = {
-  previousRegistered: null,
   users: [],
-  modal: false,
-  indexEditing: null,
-  currentEditing: {}
+  modals: {
+    deletePopup: false,
+    formPopup: false,
+  },
+  current: {
+    index: null,
+    data: {}
+  }
 }
 
 export const getEmployees = createAction('GET_EMPLOYEES', (employees) => {
@@ -33,23 +37,30 @@ export const deleteEmployee = createAction('DELETE_EMPLOYEE', id => {
   }
 });
 
-export const setIndexEditing = createAction('SET_INDEX_EDITING', index => {
+export const setCurrentIndex = createAction('SET_CURRENT_INDEX', index => {
   return {
     payload: index
   }
 });
 
-export const setCurrentEditing = createAction('SET_CURRENT_EDITING', data => {
+export const setCurrentData = createAction('SET_CURRENT_DATA', data => {
   return {
     payload: data
   }
 });
 
-export const setModal = createAction('SET_EMPLOYEE_MODAL', modal => {
+export const setFormPopup = createAction('SET_EMPLOYEE_FORM_MODAL', value => {
   return {
-    payload: modal
+    payload: value
   }
 });
+
+export const setDeletePopup = createAction('SET_EMPLOYEE_DELETE_MODAL', value => {
+  return {
+    payload: value
+  }
+});
+
 
 export default createReducer(INITIAL_STATE, {
   [getEmployees.type]: (state, action) => ({
@@ -67,18 +78,23 @@ export default createReducer(INITIAL_STATE, {
   [updateEmployee.type]: (state, action) => ({
     ...state,
     users: state.users.slice(0, action.payload.index)
-                      .concat(action.payload.data, state.users.slice(action.payload.index + 1))
+                      .concat(action.payload.data,
+                      state.users.slice(action.payload.index + 1))
   }),
-  [setModal.type]: (state, action) => ({ 
+  [setFormPopup.type]: (state, action) => ({ 
     ...state,
-    modal: action.payload,
+    modals: {...state.modals, formPopup: action.payload},
   }),
-  [setIndexEditing.type]: (state, action) => ({ 
+  [setDeletePopup.type]: (state, action) => ({ 
     ...state,
-    indexEditing: action.payload
+    modals: {...state.modals, deletePopup: action.payload},
   }),
-  [setCurrentEditing.type]: (state, action) => ({ 
+  [setCurrentIndex.type]: (state, action) => ({ 
     ...state,
-    currentEditing: action.payload
+    current: {...state.current, index: action.payload }
+  }),
+  [setCurrentData.type]: (state, action) => ({ 
+    ...state,
+    current: {...state.current, data: action.payload }
   }),
 })

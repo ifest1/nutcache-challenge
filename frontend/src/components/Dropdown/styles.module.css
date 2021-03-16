@@ -1,0 +1,43 @@
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.header {
+  display: flex;
+}
+
+.options {
+  position: absolute;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #f3f3f3;
+  width: 120px;
+}
+
+.options > button {
+  display: block;
+  border: 0;
+  margin-left: 0px;
+  padding: 20px;
+  margin-top: 0px;
+  width: 100%;
+  background-color: #ffff;
+}
+
+.options > button:hover {
+  background-color: #f3f3f3;
+}
+
+.selectedItem {
+  display: flex;
+  width: 90px;
+}
+
+.selectedItem > h3 {
+  margin-right: 5px;
+}

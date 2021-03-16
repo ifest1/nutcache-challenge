@@ -28,14 +28,6 @@ function Dashboard() {
               data={employees}
             />
           </div>
-          <div className={styles.chartsContainer}>
-            <div className={styles.genderChart}>
-              
-            </div>
-            <div className={styles.teamsChart}>
-              
-            </div>
-          </div>
         </div>
       </section>
       
