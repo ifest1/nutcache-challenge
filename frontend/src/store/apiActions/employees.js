@@ -28,18 +28,17 @@ export const remove = (id) => {
   return dispatch => {
     api.delete(`/employees/${id}`)
       .then((res) => {
-        dispatch(deleteEmployee(res.data));
+        dispatch(deleteEmployee(id));
     })
       .catch(err => console.log(err));
   };
 }
 
-export const update = (id, data) => {
-  console.log(id, data);
+export const update = (index, data) => {
   return dispatch => {
-    api.patch(`/employees/${id}`, data)
+    api.patch(`/employees/${data._id}`, data)
       .then((res) => {
-        dispatch(updateEmployee(res.data));
+        dispatch(updateEmployee(index, res.data));
     })
       .catch(err => console.log(err));
   };

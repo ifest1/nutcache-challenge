@@ -11,10 +11,11 @@
 }
 
 .modalContent {
-  position: relative;
   padding: 32px;
   width: 100%;
   max-width: 640px;
   background-color: #fff;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }

@@ -62,16 +62,13 @@ export default createReducer(INITIAL_STATE, {
   }),
   [deleteEmployee.type]: (state, action) => ({
     ...state,
-    users: state.users.filter((user) => user.id != action.payload),
+    users: state.users.filter((user) => user._id != action.payload),
   }),
-  [updateEmployee.type]: function (state, action)  { 
-      let newUsers = state.users;
-      newUsers[action.payload.index] = action.payload.data;
-      return {
-        ...state,
-        users: newUsers
-      }
-  },
+  [updateEmployee.type]: (state, action) => ({
+    ...state,
+    users: state.users.slice(0, action.payload.index)
+                      .concat(action.payload.data, state.users.slice(action.payload.index + 1))
+  }),
   [setModal.type]: (state, action) => ({ 
     ...state,
     modal: action.payload,

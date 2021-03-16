@@ -7,22 +7,21 @@ async function index(req, res) {
 }
 
 async function store(req, res) {
-  await Employee.create(req.body);
-  res.json({status: 'ok'});
+  let result = await Employee.create(req.body);
+  res.json(result);
 }
 
 async function remove(req, res) {
   const _id = req.params.id;
-  await Employee.deleteOne(_id);
+  await Employee.deleteOne({_id});
   res.json({status: 'ok'});
 }
 
 async function update(req, res) {
+  console.log(req.body, req.params);
   const _id = req.params.id;
-  console.log(_id, req.body);
-  let result = await Employee.findByIdAndUpdate({_id}, req.body);
-  console.log(result);
-  res.json({status: 'ok'});
+  let result = await Employee.findByIdAndUpdate({_id}, req.body, {new: true});
+  res.json(result);
 }
 
 module.exports = {
