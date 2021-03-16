@@ -6,6 +6,7 @@ function Routes() {
     <Router>
       <Switch>
       <Route exact path="/dashboard" component={Dashboard} />
+      <Route exact path="/*" component={() => <Redirect to="/dashboard" />} />
     </Switch>
     </Router>
     

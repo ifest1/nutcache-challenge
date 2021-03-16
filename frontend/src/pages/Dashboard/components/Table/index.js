@@ -84,8 +84,8 @@ function Table({ columns, data, width, height }) {
           <RegularButton onClick={() => add()}>Add</RegularButton>
         </div>
         <div className={styles.handlePrevRegBtns}>
-          <RegularButton onClick={() => data ? edit(data.length - 1) : null}>Edit previous</RegularButton> 
-          <RegularButton onClick={() => data ? del(data.length - 1) : null}>Remove previous</RegularButton>
+          <RegularButton onClick={() => data.length ? edit(data.length - 1) : null}>Edit previous</RegularButton> 
+          <RegularButton onClick={() => data.length ? del(data.length - 1) : null}>Remove previous</RegularButton>
         </div>
       </div> 
     </div>

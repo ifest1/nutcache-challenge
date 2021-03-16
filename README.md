@@ -24,6 +24,8 @@
 
 ### To Dos
 - Implementar date picker;
+- Exportar tabela como CSV;
+- Exportar tabela como JSON;
 
 
 ### Informações adicionais
